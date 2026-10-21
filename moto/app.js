@@ -2,7 +2,7 @@
    CONTENU — modifie ici les infos, le crew, les machines et le shop
 ═══════════════════════════════════════════════ */
 const CONFIG = {
-  email: 'contact@exemple.com',        // À REMPLACER par l'e-mail du crew
+  email: 'kenjy.apaya@gmail.com',
   instagram: 'https://www.instagram.com/evil_sharrk/',
 };
 
@@ -15,19 +15,32 @@ const CREW = [
 ];
 
 const MACHINES = [
-  { id: 'ktm', tab: 'KTM 990 Duke', name: 'KTM 990 Duke', tag: 'Hyper naked · 2024', img: 'img/ktm.webp',
+  { id: 'ktm', tab: 'KTM 990 Duke', name: 'KTM 990 Duke', tag: 'Hyper naked · 2024', imgs: ['img/ktm-front.webp', 'img/ktm-990.webp'],
     text: 'La bête noire du crew. Bicylindre rageur, châssis affûté et phare LED en V : faite pour les virages de l\'île et les rides de nuit.',
     points: ['Silencieux IXIL', 'Leviers orange réglables', 'Rétros bar-end'],
     specs: [['Moteur', 'Bicylindre LC8c 947 cm³'], ['Puissance', '123 ch à 9 500 tr/min'], ['Couple', '103 Nm à 6 750 tr/min'],
             ['Poids à sec', '179 kg'], ['Hauteur de selle', '825 mm'], ['Réservoir', '14,8 L'], ['Boîte', '6 rapports, quickshifter']] },
-  { id: 'brz', tab: 'Subaru BRZ', name: 'Subaru BRZ', tag: 'Coupé propulsion · 2017', img: 'img/brz.webp',
+  { id: 'brz', tab: 'Subaru BRZ', name: 'Subaru BRZ', tag: 'Coupé propulsion · 2017', imgs: ['img/brz-34.webp', 'img/brz-front.webp', 'img/brz-rear.webp'],
     text: 'Le coupé du crew. Moteur boxer, propulsion et centre de gravité au ras du sol : la voiture plaisir par excellence, en gris argent.',
     points: ['Phares LED', 'Jantes 17"', 'Couleur gris argent'],
     specs: [['Moteur', 'Boxer 4 cylindres 2,0 L'], ['Puissance', '200 ch à 7 000 tr/min'], ['Couple', '205 Nm'],
             ['Transmission', 'Propulsion'], ['Boîte', '6 rapports'], ['Places', '2+2']] },
 ];
 
-const GALLERY = ['img/untamed.webp', 'img/station.webp', 'img/motion.webp', 'img/evilshark.webp', 'img/nexx.webp'];
+// Mur du crew : ajoute ici les photos envoyées par la communauté (après validation)
+const WALL = [
+  { src: 'img/station.webp',   by: '@evil_sharrk' },
+  { src: 'img/motion.webp',    by: '@evil_sharrk' },
+  { src: 'img/brz-rear.webp',  by: '@evil_sharrk' },
+  { src: 'img/evilshark.webp', by: '@evil_sharrk' },
+  { src: 'img/nexx.webp',      by: '@evil_sharrk' },
+];
+
+const OFFERS = [
+  { id: 'shooting', name: 'Shooting',          price: 19.99, img: 'img/untamed.webp', desc: 'Séance photo de nuit avec ta machine.' },
+  { id: 'edit',     name: 'Edit',              price: 49.99, img: 'img/untamed.webp', desc: 'Retouche pro de tes photos, style EVS.' },
+  { id: 'pack',     name: 'Pack shooting + edit', price: 69.99, img: 'img/untamed.webp', desc: 'La séance et la retouche, le combo complet.', best: true },
+];
 
 const PRODUCTS = [
   { id: 'evs-tee',     name: 'Tee EVS Logo',         price: 35, badge: 'Best-seller',   img: 'img/shop-evs.webp' },
@@ -41,12 +54,14 @@ const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
    HELPERS
 ═══════════════════════════════════════════════ */
 const $ = (s, el = document) => el.querySelector(s);
-const euro = n => n.toLocaleString('fr-FR') + ' €';
+const euro = n => n.toLocaleString('fr-FR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + ' €';
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 $('#year').textContent = new Date().getFullYear();
 $('#mailLink').href = `mailto:${CONFIG.email}`;
 $('#instaLink').href = $('#instaInline').href = CONFIG.instagram;
+$('#wallInsta').href = 'https://ig.me/m/evil_sharrk';
+$('#wallMail').href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Photo pour le mur EVS')}&body=${encodeURIComponent('Salut ! Voici ma photo pour le mur du crew (en pièce jointe).\n\nMon pseudo / Instagram : ')}`;
 
 /* ═══════════════════════════════════════════════
    NAV : fond plein après le haut de page
@@ -87,18 +102,40 @@ function showMachine(i) {
     <p>${esc(m.text)}</p>
     <ul>${m.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>`;
   $('#specBody').innerHTML = m.specs.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('');
-  machineImg.classList.add('swap');
-  setTimeout(() => { machineImg.src = m.img; machineImg.alt = m.name; machineImg.classList.remove('swap'); }, machineImg.src ? 250 : 0);
+  $('#thumbs').innerHTML = m.imgs.map((src, k) => `<button class="${k ? '' : 'on'}" data-src="${src}"><img src="${src}" alt=""></button>`).join('');
+  setPhoto(m.imgs[0], m.name);
 }
+function setPhoto(src, alt) {
+  machineImg.classList.add('swap');
+  setTimeout(() => { machineImg.src = src; if (alt) machineImg.alt = alt; machineImg.classList.remove('swap'); }, machineImg.src ? 250 : 0);
+}
+$('#thumbs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#thumbs button').forEach(x => x.classList.toggle('on', x === b));
+  setPhoto(b.dataset.src);
+});
 $('#tabs').addEventListener('click', e => { if (e.target.dataset.i) showMachine(+e.target.dataset.i); });
 showMachine(0);
 
 /* ═══════════════════════════════════════════════
-   GALERIE + plein écran
+   SHOOTING : offres
 ═══════════════════════════════════════════════ */
-$('#galleryGrid').innerHTML = GALLERY.map(src => `<button data-src="${src}"><img src="${src}" alt="" loading="lazy"></button>`).join('');
+$('#offers').innerHTML = OFFERS.map(o => `
+  <div class="offer ${o.best ? 'best' : ''}">
+    ${o.best ? '<span class="badge">Le + choisi</span>' : ''}
+    <h3>${esc(o.name)}</h3>
+    <p>${esc(o.desc)}</p>
+    <strong class="offer-price">${euro(o.price)}</strong>
+    <button class="btn btn-sm" data-offer="${o.id}">Réserver</button>
+  </div>`).join('');
+$('#offers').addEventListener('click', e => { if (e.target.dataset.offer) addToCart(e.target.dataset.offer, 'Unique'); });
+
+/* ═══════════════════════════════════════════════
+   MUR DU CREW + plein écran
+═══════════════════════════════════════════════ */
+$('#wallGrid').innerHTML = WALL.map(w => `<button data-src="${w.src}"><img src="${w.src}" alt="Photo de ${esc(w.by)}" loading="lazy"><span>${esc(w.by)}</span></button>`).join('');
 const lightbox = $('#lightbox');
-$('#galleryGrid').addEventListener('click', e => {
+$('#wallGrid').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   $('#lightboxImg').src = b.dataset.src; lightbox.classList.add('open');
 });
@@ -142,10 +179,10 @@ $('#products').addEventListener('click', e => {
 /* ═══════════════════════════════════════════════
    PANIER (sauvegardé dans le navigateur)
 ═══════════════════════════════════════════════ */
+const product = id => PRODUCTS.find(p => p.id === id) || OFFERS.find(o => o.id === id);
 let cart = [];
-try { cart = (JSON.parse(localStorage.getItem('evs-cart')) || []).filter(l => PRODUCTS.some(p => p.id === l.id)); } catch (e) { cart = []; }
+try { cart = (JSON.parse(localStorage.getItem('evs-cart')) || []).filter(l => product(l.id)); } catch (e) { cart = []; }
 const saveCart = () => { try { localStorage.setItem('evs-cart', JSON.stringify(cart)); } catch (e) {} };
-const product = id => PRODUCTS.find(p => p.id === id);
 
 function addToCart(id, size) {
   const line = cart.find(l => l.id === id && l.size === size);
@@ -158,7 +195,7 @@ function renderCart() {
     const p = product(l.id);
     return `<div class="line">
       <img src="${esc(p.img)}" alt="">
-      <div><h4>${esc(p.name)}</h4><small>Taille ${esc(l.size)}</small>
+      <div><h4>${esc(p.name)}</h4><small>${l.size === 'Unique' ? (OFFERS.some(o => o.id === l.id) ? 'Shooting photo' : 'Taille unique') : 'Taille ' + esc(l.size)}</small>
         <div class="qty"><button data-dec="${i}" aria-label="Moins">−</button><span>${l.qty}</span><button data-inc="${i}" aria-label="Plus">+</button></div>
       </div>
       <strong>${euro(p.price * l.qty)}</strong>
@@ -185,7 +222,7 @@ $('#overlay').onclick = closeCart;
 // Commande par e-mail. Pour un vrai paiement, remplace par des liens Stripe Payment Links ou Snipcart.
 $('#checkout').onclick = () => {
   if (!cart.length) return toast('Ton panier est vide');
-  const lines = cart.map(l => `- ${l.qty} x ${product(l.id).name} (taille ${l.size}) = ${euro(product(l.id).price * l.qty)}`);
+  const lines = cart.map(l => `- ${l.qty} x ${product(l.id).name} ${l.size === 'Unique' ? '' : `(taille ${l.size})`} = ${euro(product(l.id).price * l.qty)}`);
   const body = `Salut Evil Shark Crew,\n\nJe voudrais commander :\n${lines.join('\n')}\n\nTotal : ${euro(cartTotal())}\n\nNom :\nAdresse / point de retrait :\nTéléphone :`;
   location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Commande shop EVS')}&body=${encodeURIComponent(body)}`;
 };
