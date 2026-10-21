@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evil Shark Crew — Untamed · 974</title>
+<meta name="description" content="Evil Shark Crew (EVS), crew moto de La Réunion. Le crew, nos machines, la galerie et le shop.">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="Evil Shark Crew"><img src="img/evs-logo.webp" alt="EVS"></a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#top">Accueil</a>
+    <a href="#crew">Le Crew</a>
+    <a href="#machines">Machines</a>
+    <a href="#specs">Fiche technique</a>
+    <a href="#shooting">Shooting</a>
+    <a href="#wall">Le mur</a>
+    <a href="#shop">Shop</a>
+  </nav>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">Panier <span class="cart-count" id="cartCount">0</span></button>
+    <a href="#contact" class="btn btn-sm nav-cta">Rejoindre</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-img"><img src="img/ktm-front.webp" alt="KTM 990 Duke noire et orange, de nuit à la station"></div>
+    <div class="hero-text reveal">
+      <p class="kicker">Evil Shark Crew · La Réunion 974</p>
+      <h1>Untamed.<br>Stay evil.</h1>
+      <p>Un crew, une famille. On roule la nuit, sous la pluie, sur les plus belles routes de l'île. Rejoins le mouvement et porte les couleurs EVS.</p>
+      <a href="#shop" class="btn">Découvrir le shop</a>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro reveal">
+    <h2>Ride at night. Ride together.</h2>
+    <p>Evil Shark Crew est né d'une bande de potes passionnés de deux et quatre roues. Sorties de nuit, shootings, road trips autour de l'île : ici, personne ne roule seul.</p>
+    <p class="muted">Suis-nous sur Instagram <a id="instaInline" href="#" target="_blank" rel="noopener">@evil_sharrk</a></p>
+  </section>
+
+  <!-- CREW (carrousel) -->
+  <section class="crew" id="crew">
+    <h2 class="section-title">Le Crew</h2>
+    <div class="carousel">
+      <div class="track" id="crewTrack"></div>
+    </div>
+    <div class="arrows">
+      <button id="prev" aria-label="Précédent">‹</button>
+      <button id="next" aria-label="Suivant">›</button>
+    </div>
+  </section>
+
+  <!-- MACHINES -->
+  <section class="machines" id="machines">
+    <h2 class="section-title">Nos machines</h2>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="machine">
+      <div class="machine-text" id="machineText"></div>
+      <div class="machine-visual">
+        <div class="stripes"><span></span><span></span><span></span></div>
+        <div class="machine-photo"><img id="machineImg" src="" alt=""></div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FICHE TECHNIQUE -->
+  <section class="specs" id="specs">
+    <h2 class="section-title">Fiche technique</h2>
+    <table class="spec-table"><tbody id="specBody"></tbody></table>
+    <p class="note">Données constructeur, à titre indicatif.</p>
+  </section>
+
+  <!-- SHOOTING PHOTO -->
+  <section class="shooting" id="shooting">
+    <div class="shooting-img reveal"><img src="img/untamed.webp" alt="Shooting photo de nuit Evil Shark Crew : rider sur sa KTM, « untamed »"></div>
+    <div class="shooting-text">
+      <h2>Shooting photo</h2>
+      <p>Toi et ta machine, shootés de nuit comme le crew. On s'occupe de la prise de vue et de la retouche pour un rendu qui claque sur tes réseaux.</p>
+      <div class="offers" id="offers"></div>
+    </div>
+  </section>
+
+  <!-- MUR DU CREW -->
+  <section class="wall" id="wall">
+    <h2 class="section-title">Le mur du crew</h2>
+    <p class="section-sub">Tes photos avec le crew, ta bécane ou ton tee EVS. Envoie-nous la tienne, on l'affiche ici.</p>
+    <div class="grid" id="wallGrid"></div>
+    <div class="wall-cta reveal">
+      <h3>Publie ta photo</h3>
+      <p>Envoie-la en message sur Instagram ou par e-mail, avec ton pseudo. On valide chaque photo avant de la mettre en ligne. Tag aussi <strong>#evilsharkcrew</strong>.</p>
+      <div class="contact-btns">
+        <a class="btn" id="wallInsta" href="#" target="_blank" rel="noopener">Envoyer sur Instagram</a>
+        <a class="btn btn-ghost" id="wallMail" href="#">Envoyer par e-mail</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="shop" id="shop">
+    <h2 class="section-title">Le shop</h2>
+    <p class="section-sub">Tees coton lourd, sérigraphie EVS. Séries limitées, portés par le crew.</p>
+    <div class="products" id="products"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <img src="img/station.webp" alt="" class="contact-bg">
+    <div class="contact-inner reveal">
+      <h2>Rejoins le crew</h2>
+      <p>Une sortie, un shooting, une commande ? Écris-nous, on répond vite.</p>
+      <div class="contact-btns">
+        <a class="btn" id="instaLink" href="#" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-ghost" id="mailLink" href="#">E-mail</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <img src="img/evs-logo.webp" alt="EVS">
+  <span>© <span id="year"></span> Evil Shark Crew · Photos : RUNMOTORZ</span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""><button class="close" aria-label="Fermer">✕</button></div>
+
+<!-- PANIER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Panier">
+  <div class="drawer-head"><h3>Ton panier</h3><button class="close" id="closeCart" aria-label="Fermer">✕</button></div>
+  <div class="drawer-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="total"><span>Total</span><strong id="cartTotal">0 €</strong></div>
+    <button class="btn btn-full" id="checkout">Commander</button>
+    <p class="fine">Paiement en ligne à brancher (Stripe / SumUp). En attendant, la commande part par e-mail.</p>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
