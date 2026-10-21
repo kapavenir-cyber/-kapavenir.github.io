@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
 </head>
 <body>
 
@@ -17,7 +18,7 @@
 <header class="nav" id="nav">
   <a href="#top" class="logo" aria-label="Evil Shark Crew"><img src="img/evs-logo.webp" alt="EVS"></a>
   <nav class="nav-links" id="navLinks">
-    <a href="#helmet">Démontage</a>
+    <a href="#garage">Garage</a>
     <a href="#crew">Le Crew</a>
     <a href="#shop">Shop</a>
     <a href="#blog">Blog</a>
@@ -33,22 +34,34 @@
 
 <main id="top">
 
-  <!-- HERO : logo → fenêtre qui s'ouvre sur la photo -->
-  <section class="hero pin" id="hero">
+  <!-- GARAGE 3D : la caméra visite le garage au scroll -->
+  <section class="garage" id="garage">
     <div class="sticky">
-      <div class="grain"></div>
-      <div class="hero-window" id="heroWindow">
-        <img src="img/untamed.webp" alt="Rider Evil Shark Crew sur sa moto, de nuit, sous la pluie" id="heroImg">
-      </div>
-      <div class="hero-logo" id="heroLogo">
+      <canvas id="garageCanvas" aria-label="Garage 3D du Evil Shark Crew : Subaru BRZ, KTM 990 Duke et le pilote"></canvas>
+      <img class="g-fallback" src="img/untamed.webp" alt="Rider Evil Shark Crew sur sa moto, de nuit">
+      <div class="g-loader">Ouverture du garage…</div>
+      <div class="g-intro" id="gIntro">
         <img src="img/evs-logo.webp" alt="EVS — Evil Shark Crew">
         <p>Evil Shark Crew</p>
+        <span class="scroll-hint">Fais défiler pour entrer ↓</span>
       </div>
-      <div class="hero-foot" id="heroFoot">
-        <p class="kicker">Moto crew · La Réunion · 974</p>
-        <a href="#shop" class="btn">La collection</a>
-      </div>
-      <p class="scroll-hint" id="scrollHint">Fais défiler ↓</p>
+      <div class="g-cap"><p class="label">Le QG</p><h2>Bienvenue<br><span>au garage</span></h2></div>
+      <div class="g-cap"><p class="label">01 — La caisse</p><h2>Subaru<br><span>BRZ</span></h2>
+        <p class="g-sub">Moteur boxer, propulsion, zéro compromis. Choisis sa couleur :</p>
+        <div class="paints">
+          <button data-paint="#1d4fbf" class="on" style="background:#1d4fbf" aria-label="Bleu"></button>
+          <button data-paint="#e9e9e6" style="background:#e9e9e6" aria-label="Blanc"></button>
+          <button data-paint="#c8141a" style="background:#c8141a" aria-label="Rouge"></button>
+          <button data-paint="#111214" style="background:#111214" aria-label="Noir"></button>
+          <button data-paint="#7f8489" style="background:#7f8489" aria-label="Gris"></button>
+        </div></div>
+      <div class="g-cap"><p class="label">01 — La caisse</p><h2>Ligne<br><span>basse</span></h2><p class="g-sub">Coupé 2+2, centre de gravité au ras du sol.</p></div>
+      <div class="g-cap"><p class="label">02 — L'atelier</p><h2>Ici on<br><span>bichonne</span></h2><p class="g-sub">Servante, établi, outils : chaque machine passe par là.</p></div>
+      <div class="g-cap"><p class="label">03 — L'emblème</p><h2>Stay<br><span>untamed</span></h2></div>
+      <div class="g-cap"><p class="label">04 — La bécane</p><h2>KTM<br><span>990 Duke</span></h2><p class="g-sub">Bicylindre LC8c, noire et orange, prête pour la nuit.</p></div>
+      <div class="g-cap"><p class="label">05 — Le pilote</p><h2>Evil<br><span>Shark</span></h2><p class="g-sub">Casque KYT, tee EVS. Le crew roule ensemble.</p></div>
+      <div class="g-cap g-end"><h2>Bienvenue<br><span>dans le crew</span></h2><a href="#shop" class="btn">La collection</a></div>
+      <div class="g-progress"><span id="gBar"></span></div>
     </div>
   </section>
 
@@ -57,42 +70,16 @@
     <div class="marquee-track" id="marquee"></div>
   </div>
 
-  <!-- CASQUE DÉMONTÉ -->
-  <section class="explode pin" id="helmet" data-model="helmet">
-    <div class="sticky">
-      <div class="explode-copy">
-        <p class="label">01 — Démontage</p>
-        <h2>Le casque,<br><span>pièce par pièce</span></h2>
-        <p class="explode-sub">Fais défiler : l'équipement se démonte sous tes yeux.</p>
-      </div>
-      <div class="stage" id="helmetStage"></div>
-      <div class="explode-progress"><span></span></div>
-    </div>
-  </section>
-
   <!-- MANIFESTO -->
   <section class="manifesto">
     <p class="reveal-words" id="manifesto">On n'est pas là pour faire joli. On roule la nuit, sous la pluie, sur les routes de l'île. Un crew, une famille, un seul mot d'ordre : rester sauvage. Untamed.</p>
-  </section>
-
-  <!-- MOTO DÉMONTÉE -->
-  <section class="explode pin" id="bike" data-model="bike">
-    <div class="sticky">
-      <div class="explode-copy">
-        <p class="label">02 — La machine</p>
-        <h2>KTM 990 Duke<br><span>éclatée</span></h2>
-        <p class="explode-sub">Cadre, moteur, roues, échappement : chaque pièce prend sa place.</p>
-      </div>
-      <div class="stage" id="bikeStage"></div>
-      <div class="explode-progress"><span></span></div>
-    </div>
   </section>
 
   <!-- CREW : défilement horizontal -->
   <section class="crew" id="crew">
     <div class="crew-sticky">
       <div class="crew-head">
-        <p class="label">03 — Le Crew</p>
+        <p class="label">06 — Le Crew</p>
         <h2>Les visages<br>sous le casque</h2>
       </div>
       <div class="crew-track" id="crewTrack"></div>
@@ -110,7 +97,7 @@
   <!-- SHOP -->
   <section class="shop" id="shop">
     <div class="section-head">
-      <p class="label">04 — Shop</p>
+      <p class="label">07 — Shop</p>
       <h2>La collection</h2>
       <p class="sub">Tees coton lourd, sérigraphie EVS. Séries limitées, portés par le crew.</p>
     </div>
@@ -120,7 +107,7 @@
   <!-- BLOG -->
   <section class="blog" id="blog">
     <div class="section-head">
-      <p class="label">05 — Blog</p>
+      <p class="label">08 — Blog</p>
       <h2>Carnet de route</h2>
     </div>
     <div class="posts" id="posts"></div>
@@ -167,5 +154,6 @@
 <div class="toast" id="toast"></div>
 
 <script src="app.js"></script>
+<script type="module" src="garage.js"></script>
 </body>
 </html>

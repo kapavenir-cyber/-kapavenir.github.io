@@ -3,7 +3,7 @@
 ═══════════════════════════════════════════════ */
 const CONFIG = {
   email: 'contact@exemple.com',        // À REMPLACER par l'e-mail du crew
-  instagram: 'https://instagram.com/', // À REMPLACER par le lien Instagram du crew
+  instagram: 'https://www.instagram.com/evil_sharrk/',
 };
 
 const CREW = [
@@ -52,34 +52,11 @@ const POSTS = [
     ] },
 ];
 
-/* Vues éclatées : position de chaque pièce (en % de l'image), déplacement à l'éclatement
-   (dx en % de la largeur, dy en % de la hauteur), rotation, échelle, étiquette. */
-const MODELS = {
-  helmet: { ratio: 0.8354, pieces: [
-    { name: 'body',     x: 1.6,    y: 39.014, w: 94.2,   dy: 22, op: .35, label: 'Tee Evilshark', small: 'Coton lourd · sérigraphie', ax: .35, ay: .4 },
-    { name: 'chin',     x: 27.5,   y: 21.053, w: 41,     dy: 9, label: 'Mentonnière', small: 'Ventilée', ax: .75, ay: .8 },
-    { name: 'visor',    x: 27.4,   y: 14.369, w: 40.7,   dx: -24, dy: -4, rot: -8, s: 1.08, label: 'Écran iridium', small: 'Fumé · anti-buée', ax: .15, side: 'l' },
-    { name: 'shell',    x: 27.4,   y: 1.42,   w: 39.9,   dy: -10, rot: -4, label: 'Coque KYT', small: 'Ventilation supérieure', ax: .8, ay: .4 },
-    { name: 'intercom', x: 65.2,   y: 24.06,  w: 5.4,    dx: 18, rot: 12, label: 'Intercom', small: 'On roule connectés' },
-  ] },
-  bike: { ratio: 1.0381, pieces: [
-    { name: 'body',    x: 4.083,  y: 26.817, w: 91.667, s: .96, label: 'Moteur LC8c', small: 'Bicylindre · cadre acier', ax: .66, ay: .4 },
-    { name: 'stand',   x: 0.75,   y: 63.495, w: 53.5,   dy: 26, op: .5, label: 'Béquille d\'atelier', ax: .12, ay: .85, side: 'l' },
-    { name: 'rear',    x: 17.417, y: 41.09,  w: 35,     dx: -22, dy: 6, rot: -30, label: 'Roue arrière', small: 'Jante 17" · disque & étrier', ax: .2, side: 'l' },
-    { name: 'tail',    x: 27.25,  y: 19.291, w: 36.5,   dx: -16, dy: -22, rot: -6, label: 'Coque arrière', small: 'Selle & boucle', ax: .15, ay: .3, side: 'l' },
-    { name: 'exhaust', x: 44.583, y: 46.972, w: 17,     dx: 12, dy: 30, rot: 8, s: 1.15, label: 'Silencieux IXIL', small: 'Inox · son rauque', ax: .9 },
-    { name: 'front',   x: 79.167, y: 32.439, w: 16.75,  dx: 16, dy: 8, rot: 25, label: 'Roue avant', small: 'Freinage radial', ax: .9 },
-    { name: 'tank',    x: 55.333, y: 5.017,  w: 39.917, dx: 10, dy: -15, rot: -4, label: 'Réservoir & TFT', small: 'Guidon · écran couleur', ax: .85, ay: .2 },
-  ] },
-};
-
 /* ═══════════════════════════════════════════════
    HELPERS
 ═══════════════════════════════════════════════ */
 const $ = (s, el = document) => el.querySelector(s);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-const range = (p, start, end) => clamp((p - start) / (end - start));
-const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const euro = n => n.toLocaleString('fr-FR') + ' €';
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -103,25 +80,6 @@ $('#crewTrack').innerHTML = CREW.map((r, i) => `
     <h3>${esc(r.name)}</h3>
     <p>${esc(r.role)}</p>
   </article>`).join('');
-
-// Vues éclatées : on construit les pièces et les étiquettes
-const stages = Object.entries(MODELS).map(([key, model]) => {
-  const section = $(`#${key}`), stage = $(`#${key}Stage`);
-  stage.style.setProperty('--ratio', model.ratio);
-  const els = model.pieces.map(p => {
-    const piece = document.createElement('div');
-    piece.className = 'piece';
-    piece.style.cssText = `left:${p.x}%;top:${p.y}%;width:${p.w}%`;
-    piece.innerHTML = `<img src="img/${key}-${p.name}.webp" alt="">`;
-    stage.appendChild(piece);
-    const tag = document.createElement('div');
-    tag.className = 'tag' + (p.side === 'l' ? ' left' : '');
-    tag.innerHTML = `<i></i><span>${esc(p.label)}${p.small ? `<small>${esc(p.small)}</small>` : ''}</span>`;
-    stage.appendChild(tag);
-    return { p, piece, tag };
-  });
-  return { section, stage, els, bar: $('.explode-progress span', section) };
-});
 
 const selection = {};
 function renderProducts() {
@@ -247,8 +205,6 @@ document.addEventListener('keydown', e => {
 /* ═══════════════════════════════════════════════
    ANIMATIONS AU SCROLL
 ═══════════════════════════════════════════════ */
-const hero = $('#hero'), heroWindow = $('#heroWindow'), heroImg = $('#heroImg');
-const heroLogo = $('#heroLogo'), heroFoot = $('#heroFoot'), hint = $('#scrollHint');
 const crew = $('#crew'), track = $('#crewTrack');
 
 const manifesto = $('#manifesto');
@@ -266,50 +222,8 @@ function sectionProgress(el) {
   return clamp(-r.top / (r.height - innerHeight || 1));
 }
 
-function renderExplode({ section, stage, els, bar }) {
-  const p = reduced ? 0.6 : sectionProgress(section);
-  // s'éclate, reste ouvert, puis se remonte à la fin de la section
-  const e = ease(range(p, 0.08, 0.5)) * (1 - ease(range(p, 0.86, 1)));
-  const W = stage.offsetWidth, H = stage.offsetHeight;
-  const k = innerWidth < 760 ? 0.6 : 1; // écartement réduit sur mobile
-  els.forEach(({ p: c, piece, tag }, i) => {
-    const dx = (c.dx || 0) * k * W / 100 * e, dy = (c.dy || 0) * H / 100 * e;
-    piece.style.transform = `translate(${dx}px, ${dy}px) rotate(${(c.rot || 0) * e}deg) scale(${1 + ((c.s || 1) - 1) * e})`;
-    piece.style.opacity = 1 - (1 - (c.op ?? 1)) * e;
-    // étiquette accrochée à la pièce
-    const ax = c.x + c.w * (c.ax ?? .5);
-    const ay = c.y + (piece.offsetHeight / H * 100) * (c.ay ?? .5);
-    tag.style.left = `${ax}%`; tag.style.top = `${ay}%`;
-    const t = range(p, 0.42 + i * 0.025, 0.55 + i * 0.025) * (1 - range(p, 0.82, 0.88));
-    const shift = c.side === 'l' ? `calc(-100% + 6px)` : '-6px';
-    const base = `translate(${dx}px, ${dy}px) translate(${shift}, -50%) translateX(${(1 - t) * (c.side === 'l' ? -12 : 12)}px)`;
-    tag.style.transform = base;
-    tag.style.opacity = t;
-    // garde l'étiquette dans l'écran (petits écrans)
-    if (t > 0) {
-      const r = tag.getBoundingClientRect();
-      const fix = Math.max(0, 8 - r.left) - Math.max(0, r.right - (innerWidth - 8));
-      if (fix) tag.style.transform = `${base} translateX(${fix}px)`;
-    }
-  });
-  bar.style.height = `${p * 100}%`;
-}
-
 function onScroll() {
   const vh = innerHeight;
-
-  // HERO : la fenêtre s'ouvre sur la photo, le logo s'efface
-  const p = reduced ? 1 : sectionProgress(hero);
-  const open = ease(range(p, 0.08, 0.6));
-  const inset = 40 * (1 - open);
-  heroWindow.style.clipPath = `inset(${inset}% ${inset * 0.9}% ${inset}% ${inset * 0.9}% round ${24 * (1 - open)}px)`;
-  heroImg.style.transform = `scale(${1.4 - open * 0.4})`;
-  heroLogo.style.transform = `translateY(${-range(p, 0.1, 0.6) * 30}vh) scale(${1 - range(p, 0.1, 0.6) * 0.55})`;
-  heroLogo.style.opacity = 1 - range(p, 0.5, 0.7);
-  heroFoot.style.opacity = range(p, 0.7, 0.85);
-  hint.style.opacity = 1 - range(p, 0, 0.04);
-
-  stages.forEach(renderExplode);
 
   // MANIFESTO
   const mr = manifesto.getBoundingClientRect();
