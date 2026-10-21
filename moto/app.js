@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   CONTENU — modifie ici les infos, le crew, le shop et le blog
+   CONTENU — modifie ici les infos, le crew, les machines et le shop
 ═══════════════════════════════════════════════ */
 const CONFIG = {
   email: 'contact@exemple.com',        // À REMPLACER par l'e-mail du crew
@@ -14,6 +14,21 @@ const CREW = [
   { name: 'Evilshark',  role: 'Tee Flames · casque KYT',      photo: 'img/evilshark.webp' },
 ];
 
+const MACHINES = [
+  { id: 'ktm', tab: 'KTM 990 Duke', name: 'KTM 990 Duke', tag: 'Hyper naked · 2024', img: 'img/ktm.webp',
+    text: 'La bête noire du crew. Bicylindre rageur, châssis affûté et phare LED en V : faite pour les virages de l\'île et les rides de nuit.',
+    points: ['Silencieux IXIL', 'Leviers orange réglables', 'Rétros bar-end'],
+    specs: [['Moteur', 'Bicylindre LC8c 947 cm³'], ['Puissance', '123 ch à 9 500 tr/min'], ['Couple', '103 Nm à 6 750 tr/min'],
+            ['Poids à sec', '179 kg'], ['Hauteur de selle', '825 mm'], ['Réservoir', '14,8 L'], ['Boîte', '6 rapports, quickshifter']] },
+  { id: 'brz', tab: 'Subaru BRZ', name: 'Subaru BRZ', tag: 'Coupé propulsion · 2017', img: 'img/brz.webp',
+    text: 'Le coupé du crew. Moteur boxer, propulsion et centre de gravité au ras du sol : la voiture plaisir par excellence, en gris argent.',
+    points: ['Phares LED', 'Jantes 17"', 'Couleur gris argent'],
+    specs: [['Moteur', 'Boxer 4 cylindres 2,0 L'], ['Puissance', '200 ch à 7 000 tr/min'], ['Couple', '205 Nm'],
+            ['Transmission', 'Propulsion'], ['Boîte', '6 rapports'], ['Places', '2+2']] },
+];
+
+const GALLERY = ['img/untamed.webp', 'img/station.webp', 'img/motion.webp', 'img/evilshark.webp', 'img/nexx.webp'];
+
 const PRODUCTS = [
   { id: 'evs-tee',     name: 'Tee EVS Logo',         price: 35, badge: 'Best-seller',   img: 'img/shop-evs.webp' },
   { id: 'flames-tee',  name: 'Tee Evilshark Flames', price: 35, badge: 'Nouveau',       img: 'img/shop-flames.webp' },
@@ -22,65 +37,76 @@ const PRODUCTS = [
 ];
 const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
 
-const POSTS = [
-  { title: 'Untamed : le shooting de nuit', date: '18 oct. 2026', tag: 'Shooting', cover: 'img/untamed.webp',
-    excerpt: 'Pluie fine, station déserte, palmiers dans le noir : les coulisses de la photo qui a donné son nom à la collection.',
-    body: [
-      'Il est presque minuit quand on se gare sous les néons de la station. La pluie vient de s\'arrêter, le bitume brille encore. Parfait.',
-      '## L\'idée',
-      'Montrer ce qu\'est le crew : pas des poses de catalogue, mais des riders, leurs bécanes et la nuit réunionnaise.',
-      '## Le résultat',
-      'Un noir et blanc tranché par le rouge EVS. Une image, un mot : untamed. Il est devenu le nom de notre nouvelle série de tees.'
-    ] },
-  { title: 'Pit stop : nos checks avant une ride de nuit', date: '2 oct. 2026', tag: 'Mécanique', cover: 'img/station.webp',
-    excerpt: 'Pneus, éclairage, chaîne, visière : la check-list du crew avant de partir quand le soleil est couché.',
-    body: [
-      'Rouler de nuit, c\'est magique. Mais ça se prépare.',
-      '## Pneus et freins',
-      'Pression à froid, usure, plaquettes. Sur route humide, on ne négocie pas.',
-      '## Être vu',
-      'Feux, clignos, feu stop. Et une visière propre, ou un écran clair si la route est longue.',
-      '## Rester groupés',
-      'Intercom allumé, un ouvreur, un serre-file. Personne ne reste derrière.'
-    ] },
-  { title: 'Le drop Evilshark Flames est en ligne', date: '20 sept. 2026', tag: 'Shop', cover: 'img/evilshark.webp',
-    excerpt: 'Le logo flammes arrive sur un tee noir coton lourd. Petite série, premier arrivé, premier servi.',
-    body: [
-      'Le logo Evilshark entouré de flammes, imprimé en gris clair sur un tee noir épais.',
-      'Coupe un peu large, coton lourd qui tient dans le temps. Série limitée.',
-      'Quand c\'est parti, c\'est parti.'
-    ] },
-];
-
 /* ═══════════════════════════════════════════════
    HELPERS
 ═══════════════════════════════════════════════ */
 const $ = (s, el = document) => el.querySelector(s);
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const euro = n => n.toLocaleString('fr-FR') + ' €';
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-/* ═══════════════════════════════════════════════
-   RENDER
-═══════════════════════════════════════════════ */
 $('#year').textContent = new Date().getFullYear();
 $('#mailLink').href = `mailto:${CONFIG.email}`;
-$('#instaLink').href = CONFIG.instagram;
+$('#instaLink').href = $('#instaInline').href = CONFIG.instagram;
 
-const words = ['Evil Shark Crew', 'Untamed', '974', 'Night ride', 'Ride or die', 'EVS'];
-$('#marquee').innerHTML = [...words, ...words].map(w => `<span>${w}</span><span>✦</span>`).join('');
+/* ═══════════════════════════════════════════════
+   NAV : fond plein après le haut de page
+═══════════════════════════════════════════════ */
+const nav = $('#nav');
+const onScroll = () => nav.classList.toggle('solid', scrollY > 40);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-$('#crewTrack').innerHTML = CREW.map((r, i) => `
-  <article class="rider">
-    <div class="rider-photo">
-      <span class="rider-num">${String(i + 1).padStart(2, '0')}</span>
-      <img src="${esc(r.photo)}" alt="${esc(r.name)}" loading="lazy">
-    </div>
-    <h3>${esc(r.name)}</h3>
-    <p>${esc(r.role)}</p>
-  </article>`).join('');
+$('#burger').onclick = () => document.body.classList.toggle('menu-open');
+$('#navLinks').addEventListener('click', e => { if (e.target.tagName === 'A') document.body.classList.remove('menu-open'); });
 
+/* ═══════════════════════════════════════════════
+   CREW : carrousel
+═══════════════════════════════════════════════ */
+const track = $('#crewTrack');
+track.innerHTML = CREW.map(r => `
+  <figure class="card">
+    <img src="${esc(r.photo)}" alt="${esc(r.name)}" loading="lazy">
+    <figcaption><strong>${esc(r.name)}</strong><span>${esc(r.role)}</span></figcaption>
+  </figure>`).join('');
+const carousel = $('.carousel');
+const step = () => track.firstElementChild.offsetWidth + 16;
+$('#prev').onclick = () => carousel.scrollBy({ left: -step(), behavior: 'smooth' });
+$('#next').onclick = () => carousel.scrollBy({ left: step(), behavior: 'smooth' });
+
+/* ═══════════════════════════════════════════════
+   MACHINES + FICHE TECHNIQUE (onglets)
+═══════════════════════════════════════════════ */
+$('#tabs').innerHTML = MACHINES.map((m, i) =>
+  `<button class="tab ${i ? '' : 'on'}" role="tab" data-i="${i}">${esc(m.tab)}</button>`).join('');
+const machineImg = $('#machineImg');
+function showMachine(i) {
+  const m = MACHINES[i];
+  document.querySelectorAll('.tab').forEach((t, k) => t.classList.toggle('on', k === i));
+  $('#machineText').innerHTML = `
+    <span class="tag">${esc(m.tag)}</span>
+    <h3>${esc(m.name)}</h3>
+    <p>${esc(m.text)}</p>
+    <ul>${m.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul>`;
+  $('#specBody').innerHTML = m.specs.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('');
+  machineImg.classList.add('swap');
+  setTimeout(() => { machineImg.src = m.img; machineImg.alt = m.name; machineImg.classList.remove('swap'); }, machineImg.src ? 250 : 0);
+}
+$('#tabs').addEventListener('click', e => { if (e.target.dataset.i) showMachine(+e.target.dataset.i); });
+showMachine(0);
+
+/* ═══════════════════════════════════════════════
+   GALERIE + plein écran
+═══════════════════════════════════════════════ */
+$('#galleryGrid').innerHTML = GALLERY.map(src => `<button data-src="${src}"><img src="${src}" alt="" loading="lazy"></button>`).join('');
+const lightbox = $('#lightbox');
+$('#galleryGrid').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  $('#lightboxImg').src = b.dataset.src; lightbox.classList.add('open');
+});
+lightbox.onclick = () => lightbox.classList.remove('open');
+
+/* ═══════════════════════════════════════════════
+   SHOP
+═══════════════════════════════════════════════ */
 const selection = {};
 function renderProducts() {
   $('#products').innerHTML = PRODUCTS.map(p => {
@@ -103,7 +129,6 @@ function renderProducts() {
   }).join('');
 }
 renderProducts();
-observeReveal('.product');
 
 $('#products').addEventListener('click', e => {
   const card = e.target.closest('.product'); if (!card) return;
@@ -113,28 +138,6 @@ $('#products').addEventListener('click', e => {
     card.querySelectorAll('.size').forEach(b => b.classList.toggle('on', b === e.target));
   } else if ('add' in e.target.dataset) addToCart(id, sel.size);
 });
-
-$('#posts').innerHTML = POSTS.map((p, i) => `
-  <button class="post" data-post="${i}">
-    <div class="post-cover"><img src="${esc(p.cover)}" alt="" loading="lazy"></div>
-    <span class="post-meta">${esc(p.tag)} · ${esc(p.date)}</span>
-    <h3>${esc(p.title)}</h3>
-    <p>${esc(p.excerpt)}</p>
-  </button>`).join('');
-observeReveal('.post');
-
-$('#posts').addEventListener('click', e => {
-  const b = e.target.closest('.post'); if (!b) return;
-  const p = POSTS[+b.dataset.post];
-  $('#articleInner').innerHTML = `
-    <img class="article-cover" src="${esc(p.cover)}" alt="">
-    <span class="post-meta">${esc(p.tag)} · ${esc(p.date)}</span>
-    <h1>${esc(p.title)}</h1>
-    ${p.body.map(t => t.startsWith('## ') ? `<h2>${esc(t.slice(3))}</h2>` : `<p>${esc(t)}</p>`).join('')}`;
-  $('#article').scrollTop = 0;
-  document.body.classList.add('article-open');
-});
-$('#closeArticle').onclick = () => document.body.classList.remove('article-open');
 
 /* ═══════════════════════════════════════════════
    PANIER (sauvegardé dans le navigateur)
@@ -193,74 +196,12 @@ function toast(msg) {
   clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-/* ═══════════════════════════════════════════════
-   MENU MOBILE
-═══════════════════════════════════════════════ */
-$('#burger').onclick = () => document.body.classList.toggle('menu-open');
-$('#navLinks').addEventListener('click', e => { if (e.target.tagName === 'A') document.body.classList.remove('menu-open'); });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.body.classList.remove('cart-open', 'article-open', 'menu-open');
+  if (e.key === 'Escape') { document.body.classList.remove('cart-open', 'menu-open'); lightbox.classList.remove('open'); }
 });
 
-/* ═══════════════════════════════════════════════
-   ANIMATIONS AU SCROLL
-═══════════════════════════════════════════════ */
-const crew = $('#crew'), track = $('#crewTrack');
-
-const manifesto = $('#manifesto');
-manifesto.innerHTML = manifesto.textContent.trim().split(/\s+/).map(w => `<span class="w">${esc(w)}</span>`).join(' ');
-const manifestoWords = [...manifesto.children];
-
-function sizeCrew() {
-  const extra = Math.max(0, track.scrollWidth - innerWidth);
-  crew.style.height = `${innerHeight + extra}px`;
-  crew.dataset.extra = extra;
-}
-
-function sectionProgress(el) {
-  const r = el.getBoundingClientRect();
-  return clamp(-r.top / (r.height - innerHeight || 1));
-}
-
-function onScroll() {
-  const vh = innerHeight;
-
-  // MANIFESTO
-  const mr = manifesto.getBoundingClientRect();
-  const mp = reduced ? 1 : clamp((vh * 0.85 - mr.top) / (mr.height + vh * 0.35));
-  const on = Math.round(mp * manifestoWords.length);
-  manifestoWords.forEach((w, i) => w.classList.toggle('on', i < on));
-
-  // CREW : scroll vertical → défilement horizontal
-  track.style.transform = `translateX(${-sectionProgress(crew) * (+crew.dataset.extra || 0)}px)`;
-}
-
-let ticking = false;
-addEventListener('scroll', () => {
-  if (!ticking) { requestAnimationFrame(() => { onScroll(); ticking = false; }); ticking = true; }
-}, { passive: true });
-addEventListener('resize', () => { sizeCrew(); onScroll(); });
-addEventListener('load', () => { sizeCrew(); onScroll(); });
-sizeCrew(); onScroll();
-
 /* apparition au scroll */
-function observeReveal(sel) {
-  const io = new IntersectionObserver(entries => entries.forEach(en => {
-    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-  }), { threshold: 0.15 });
-  document.querySelectorAll(sel).forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 90}ms`; io.observe(el); });
-}
-
-/* compteurs */
-const counterIO = new IntersectionObserver(entries => entries.forEach(en => {
-  if (!en.isIntersecting) return;
-  const el = en.target, target = +el.dataset.count, t0 = performance.now(), dur = 1600;
-  const step = now => {
-    const k = clamp((now - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
-    el.textContent = Math.round(target * eased).toLocaleString('fr-FR');
-    if (k < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-  counterIO.unobserve(el);
-}), { threshold: 0.5 });
-document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+}), { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));

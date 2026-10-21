@@ -4,139 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Evil Shark Crew — Untamed · 974</title>
-<meta name="description" content="Evil Shark Crew (EVS), crew moto de La Réunion. Le crew, la boutique, le carnet de route.">
+<meta name="description" content="Evil Shark Crew (EVS), crew moto de La Réunion. Le crew, nos machines, la galerie et le shop.">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
 </head>
 <body>
 
-<!-- NAV -->
 <header class="nav" id="nav">
   <a href="#top" class="logo" aria-label="Evil Shark Crew"><img src="img/evs-logo.webp" alt="EVS"></a>
   <nav class="nav-links" id="navLinks">
-    <a href="#garage">Garage</a>
+    <a href="#top">Accueil</a>
     <a href="#crew">Le Crew</a>
+    <a href="#machines">Machines</a>
+    <a href="#specs">Fiche technique</a>
+    <a href="#gallery">Galerie</a>
     <a href="#shop">Shop</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
   </nav>
   <div class="nav-right">
-    <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">
-      Panier <span class="cart-count" id="cartCount">0</span>
-    </button>
+    <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">Panier <span class="cart-count" id="cartCount">0</span></button>
+    <a href="#contact" class="btn btn-sm nav-cta">Rejoindre</a>
     <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- GARAGE 3D : la caméra visite le garage au scroll -->
-  <section class="garage" id="garage">
-    <div class="sticky">
-      <canvas id="garageCanvas" aria-label="Garage 3D du Evil Shark Crew : Subaru BRZ, KTM 990 Duke et le pilote"></canvas>
-      <img class="g-fallback" src="img/untamed.webp" alt="Rider Evil Shark Crew sur sa moto, de nuit">
-      <div class="g-loader">Ouverture du garage…</div>
-      <div class="g-intro" id="gIntro">
-        <img src="img/evs-logo.webp" alt="EVS — Evil Shark Crew">
-        <p>Evil Shark Crew</p>
-        <span class="scroll-hint">Fais défiler pour entrer ↓</span>
-      </div>
-      <div class="g-cap"><p class="label">Le QG</p><h2>Bienvenue<br><span>au garage</span></h2></div>
-      <div class="g-cap"><p class="label">01 — La caisse</p><h2>Subaru<br><span>BRZ</span></h2>
-        <p class="g-sub">Moteur boxer, propulsion, zéro compromis. Choisis sa couleur :</p>
-        <div class="paints">
-          <button data-paint="#1d4fbf" class="on" style="background:#1d4fbf" aria-label="Bleu"></button>
-          <button data-paint="#e9e9e6" style="background:#e9e9e6" aria-label="Blanc"></button>
-          <button data-paint="#c8141a" style="background:#c8141a" aria-label="Rouge"></button>
-          <button data-paint="#111214" style="background:#111214" aria-label="Noir"></button>
-          <button data-paint="#7f8489" style="background:#7f8489" aria-label="Gris"></button>
-        </div></div>
-      <div class="g-cap"><p class="label">01 — La caisse</p><h2>Ligne<br><span>basse</span></h2><p class="g-sub">Coupé 2+2, centre de gravité au ras du sol.</p></div>
-      <div class="g-cap"><p class="label">02 — L'atelier</p><h2>Ici on<br><span>bichonne</span></h2><p class="g-sub">Servante, établi, outils : chaque machine passe par là.</p></div>
-      <div class="g-cap"><p class="label">03 — L'emblème</p><h2>Stay<br><span>untamed</span></h2></div>
-      <div class="g-cap"><p class="label">04 — La bécane</p><h2>KTM<br><span>990 Duke</span></h2><p class="g-sub">Bicylindre LC8c, noire et orange, prête pour la nuit.</p></div>
-      <div class="g-cap"><p class="label">05 — Le pilote</p><h2>Evil<br><span>Shark</span></h2><p class="g-sub">Casque KYT, tee EVS. Le crew roule ensemble.</p></div>
-      <div class="g-cap g-end"><h2>Bienvenue<br><span>dans le crew</span></h2><a href="#shop" class="btn">La collection</a></div>
-      <div class="g-progress"><span id="gBar"></span></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-img"><img src="img/untamed.webp" alt="Rider Evil Shark Crew sur sa KTM 990 Duke, de nuit"></div>
+    <div class="hero-text reveal">
+      <p class="kicker">Evil Shark Crew · La Réunion 974</p>
+      <h1>Untamed.<br>Stay evil.</h1>
+      <p>Un crew, une famille. On roule la nuit, sous la pluie, sur les plus belles routes de l'île. Rejoins le mouvement et porte les couleurs EVS.</p>
+      <a href="#shop" class="btn">Découvrir le shop</a>
     </div>
   </section>
 
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track" id="marquee"></div>
-  </div>
-
-  <!-- MANIFESTO -->
-  <section class="manifesto">
-    <p class="reveal-words" id="manifesto">On n'est pas là pour faire joli. On roule la nuit, sous la pluie, sur les routes de l'île. Un crew, une famille, un seul mot d'ordre : rester sauvage. Untamed.</p>
+  <!-- INTRO -->
+  <section class="intro reveal">
+    <h2>Ride at night. Ride together.</h2>
+    <p>Evil Shark Crew est né d'une bande de potes passionnés de deux et quatre roues. Sorties de nuit, shootings, road trips autour de l'île : ici, personne ne roule seul.</p>
+    <p class="muted">Suis-nous sur Instagram <a id="instaInline" href="#" target="_blank" rel="noopener">@evil_sharrk</a></p>
   </section>
 
-  <!-- CREW : défilement horizontal -->
+  <!-- CREW (carrousel) -->
   <section class="crew" id="crew">
-    <div class="crew-sticky">
-      <div class="crew-head">
-        <p class="label">06 — Le Crew</p>
-        <h2>Les visages<br>sous le casque</h2>
-      </div>
-      <div class="crew-track" id="crewTrack"></div>
+    <h2 class="section-title">Le Crew</h2>
+    <div class="carousel">
+      <div class="track" id="crewTrack"></div>
+    </div>
+    <div class="arrows">
+      <button id="prev" aria-label="Précédent">‹</button>
+      <button id="next" aria-label="Suivant">›</button>
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats">
-    <div class="stat"><span class="num" data-count="974">0</span><span>notre île</span></div>
-    <div class="stat"><span class="num" data-count="120">0</span><span>sorties de nuit</span></div>
-    <div class="stat"><span class="num" data-count="30000">0</span><span>km parcourus</span></div>
-    <div class="stat"><span class="num" data-count="1">0</span><span>crew</span></div>
+  <!-- MACHINES -->
+  <section class="machines" id="machines">
+    <h2 class="section-title">Nos machines</h2>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="machine">
+      <div class="machine-text" id="machineText"></div>
+      <div class="machine-visual">
+        <div class="stripes"><span></span><span></span><span></span></div>
+        <img id="machineImg" src="" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- FICHE TECHNIQUE -->
+  <section class="specs" id="specs">
+    <h2 class="section-title">Fiche technique</h2>
+    <table class="spec-table"><tbody id="specBody"></tbody></table>
+    <p class="note">Données constructeur, à titre indicatif.</p>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="gallery" id="gallery">
+    <h2 class="section-title">Galerie</h2>
+    <div class="grid" id="galleryGrid"></div>
   </section>
 
   <!-- SHOP -->
   <section class="shop" id="shop">
-    <div class="section-head">
-      <p class="label">07 — Shop</p>
-      <h2>La collection</h2>
-      <p class="sub">Tees coton lourd, sérigraphie EVS. Séries limitées, portés par le crew.</p>
-    </div>
+    <h2 class="section-title">Le shop</h2>
+    <p class="section-sub">Tees coton lourd, sérigraphie EVS. Séries limitées, portés par le crew.</p>
     <div class="products" id="products"></div>
-  </section>
-
-  <!-- BLOG -->
-  <section class="blog" id="blog">
-    <div class="section-head">
-      <p class="label">08 — Blog</p>
-      <h2>Carnet de route</h2>
-    </div>
-    <div class="posts" id="posts"></div>
   </section>
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
-    <h2 class="big-cta">Stay<br><span>untamed.</span></h2>
-    <div class="contact-side">
-      <p>Tu veux rouler avec le crew, commander un tee ou faire un shooting ? Écris-nous.</p>
-      <a class="btn" id="mailLink" href="#">E-mail</a>
-      <a class="btn btn-ghost" id="instaLink" href="#" target="_blank" rel="noopener">Instagram</a>
+    <img src="img/station.webp" alt="" class="contact-bg">
+    <div class="contact-inner reveal">
+      <h2>Rejoins le crew</h2>
+      <p>Une sortie, un shooting, une commande ? Écris-nous, on répond vite.</p>
+      <div class="contact-btns">
+        <a class="btn" id="instaLink" href="#" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-ghost" id="mailLink" href="#">E-mail</a>
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <span>© <span id="year"></span> Evil Shark Crew</span>
-  <span>Photos : RUNMOTORZ</span>
-  <span>Ride safe · Stay untamed</span>
+  <img src="img/evs-logo.webp" alt="EVS">
+  <span>© <span id="year"></span> Evil Shark Crew · Photos : RUNMOTORZ</span>
 </footer>
 
-<!-- CART DRAWER -->
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""><button class="close" aria-label="Fermer">✕</button></div>
+
+<!-- PANIER -->
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="drawer" aria-label="Panier">
-  <div class="drawer-head">
-    <h3>Ton panier</h3>
-    <button class="close" id="closeCart" aria-label="Fermer">✕</button>
-  </div>
+  <div class="drawer-head"><h3>Ton panier</h3><button class="close" id="closeCart" aria-label="Fermer">✕</button></div>
   <div class="drawer-items" id="cartItems"></div>
   <div class="drawer-foot">
     <div class="total"><span>Total</span><strong id="cartTotal">0 €</strong></div>
@@ -144,16 +128,8 @@
     <p class="fine">Paiement en ligne à brancher (Stripe / SumUp). En attendant, la commande part par e-mail.</p>
   </div>
 </aside>
-
-<!-- BLOG ARTICLE -->
-<div class="article" id="article" role="dialog" aria-modal="true">
-  <button class="close article-close" id="closeArticle" aria-label="Fermer">✕</button>
-  <div class="article-inner" id="articleInner"></div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script src="app.js"></script>
-<script type="module" src="garage.js"></script>
 </body>
 </html>
