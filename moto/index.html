@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAP RIDERS — Moto Crew · La Réunion</title>
-<meta name="description" content="KAP RIDERS, crew moto de La Réunion. Le crew, la boutique de tee-shirts, le blog des sorties.">
+<title>Evil Shark Crew — Untamed · 974</title>
+<meta name="description" content="Evil Shark Crew (EVS), crew moto de La Réunion. Le crew, la boutique, le carnet de route.">
+<link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,8 +15,9 @@
 
 <!-- NAV -->
 <header class="nav" id="nav">
-  <a href="#top" class="logo">KAP<span>/</span>RIDERS</a>
+  <a href="#top" class="logo" aria-label="Evil Shark Crew"><img src="img/evs-logo.webp" alt="EVS"></a>
   <nav class="nav-links" id="navLinks">
+    <a href="#helmet">Démontage</a>
     <a href="#crew">Le Crew</a>
     <a href="#shop">Shop</a>
     <a href="#blog">Blog</a>
@@ -31,85 +33,67 @@
 
 <main id="top">
 
-  <!-- HERO : pinned scroll animation -->
-  <section class="hero" id="hero">
-    <div class="hero-sticky">
-      <div class="hero-grain"></div>
-      <div class="hero-glow" id="heroGlow"></div>
-
-      <h1 class="hero-title" id="heroTitle">
-        <span>KAP</span><span>RIDERS</span>
-      </h1>
-
-      <svg class="bike" id="bike" viewBox="0 0 800 450" fill="none" aria-hidden="true">
-        <g stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <!-- wheels -->
-          <circle pathLength="1" cx="190" cy="330" r="95"/>
-          <circle pathLength="1" cx="190" cy="330" r="62"/>
-          <circle pathLength="1" cx="190" cy="330" r="12"/>
-          <circle pathLength="1" cx="620" cy="330" r="95"/>
-          <circle pathLength="1" cx="620" cy="330" r="62"/>
-          <circle pathLength="1" cx="620" cy="330" r="12"/>
-          <!-- brake discs -->
-          <circle pathLength="1" cx="620" cy="330" r="38" stroke-dasharray="0.04 0.02"/>
-          <!-- swingarm -->
-          <path pathLength="1" d="M190 330 L335 300 L345 320 L200 342"/>
-          <!-- engine -->
-          <path pathLength="1" d="M325 250 L445 245 L460 300 L430 345 L345 345 L320 300 Z"/>
-          <path pathLength="1" d="M345 270 L430 266 M342 290 L438 286 M345 310 L432 306"/>
-          <!-- tank -->
-          <path pathLength="1" d="M335 200 C370 165 450 160 490 182 L478 238 C430 246 380 248 340 242 Z"/>
-          <!-- seat + tail -->
-          <path pathLength="1" d="M335 200 L230 196 C200 194 170 186 140 176 L150 200 C190 214 260 222 340 226"/>
-          <!-- subframe -->
-          <path pathLength="1" d="M335 300 L255 222 M325 252 L250 214"/>
-          <!-- frame to head -->
-          <path pathLength="1" d="M490 182 L520 168 L460 300"/>
-          <!-- fork -->
-          <path pathLength="1" d="M520 168 L612 330 M535 160 L628 324"/>
-          <!-- front fender -->
-          <path pathLength="1" d="M560 255 C600 228 660 240 690 275"/>
-          <!-- handlebar + mirror -->
-          <path pathLength="1" d="M492 140 L548 152 M520 150 L527 165 M500 140 L488 112 L470 108"/>
-          <!-- headlight -->
-          <circle pathLength="1" cx="570" cy="190" r="20"/>
-          <!-- exhaust -->
-          <path pathLength="1" d="M400 345 C380 365 330 362 290 340 L150 290 L140 305 L282 356"/>
-          <!-- chain -->
-          <path pathLength="1" d="M190 312 L355 318 M190 348 L355 334"/>
-        </g>
-      </svg>
-
-      <div class="hero-lines" id="heroLines">
-        <p class="hero-kicker">Moto crew · La Réunion · depuis 2019</p>
-        <p class="hero-big">On roule ensemble.<br><em>On rentre ensemble.</em></p>
-        <a href="#shop" class="btn">Voir la collection</a>
+  <!-- HERO : logo → fenêtre qui s'ouvre sur la photo -->
+  <section class="hero pin" id="hero">
+    <div class="sticky">
+      <div class="grain"></div>
+      <div class="hero-window" id="heroWindow">
+        <img src="img/untamed.webp" alt="Rider Evil Shark Crew sur sa moto, de nuit, sous la pluie" id="heroImg">
       </div>
-
-      <div class="hero-progress"><span id="heroBar"></span></div>
+      <div class="hero-logo" id="heroLogo">
+        <img src="img/evs-logo.webp" alt="EVS — Evil Shark Crew">
+        <p>Evil Shark Crew</p>
+      </div>
+      <div class="hero-foot" id="heroFoot">
+        <p class="kicker">Moto crew · La Réunion · 974</p>
+        <a href="#shop" class="btn">La collection</a>
+      </div>
       <p class="scroll-hint" id="scrollHint">Fais défiler ↓</p>
     </div>
   </section>
 
   <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Route des Tamarins</span><span>✦</span><span>Piton Maïdo</span><span>✦</span><span>Cilaos 400 virages</span><span>✦</span><span>Route du Volcan</span><span>✦</span><span>Sunday Ride</span><span>✦</span>
-      <span>Route des Tamarins</span><span>✦</span><span>Piton Maïdo</span><span>✦</span><span>Cilaos 400 virages</span><span>✦</span><span>Route du Volcan</span><span>✦</span><span>Sunday Ride</span><span>✦</span>
-    </div>
+    <div class="marquee-track" id="marquee"></div>
   </div>
+
+  <!-- CASQUE DÉMONTÉ -->
+  <section class="explode pin" id="helmet" data-model="helmet">
+    <div class="sticky">
+      <div class="explode-copy">
+        <p class="label">01 — Démontage</p>
+        <h2>Le casque,<br><span>pièce par pièce</span></h2>
+        <p class="explode-sub">Fais défiler : l'équipement se démonte sous tes yeux.</p>
+      </div>
+      <div class="stage" id="helmetStage"></div>
+      <div class="explode-progress"><span></span></div>
+    </div>
+  </section>
 
   <!-- MANIFESTO -->
   <section class="manifesto">
-    <p class="reveal-words" id="manifesto">Pas un club. Pas un gang. Une bande de potes qui partage la route, le bitume chaud du dimanche matin et les cafés au bord du volcan. Tout le monde est le bienvenu, peu importe la cylindrée.</p>
+    <p class="reveal-words" id="manifesto">On n'est pas là pour faire joli. On roule la nuit, sous la pluie, sur les routes de l'île. Un crew, une famille, un seul mot d'ordre : rester sauvage. Untamed.</p>
   </section>
 
-  <!-- CREW : horizontal scroll -->
+  <!-- MOTO DÉMONTÉE -->
+  <section class="explode pin" id="bike" data-model="bike">
+    <div class="sticky">
+      <div class="explode-copy">
+        <p class="label">02 — La machine</p>
+        <h2>KTM 990 Duke<br><span>éclatée</span></h2>
+        <p class="explode-sub">Cadre, moteur, roues, échappement : chaque pièce prend sa place.</p>
+      </div>
+      <div class="stage" id="bikeStage"></div>
+      <div class="explode-progress"><span></span></div>
+    </div>
+  </section>
+
+  <!-- CREW : défilement horizontal -->
   <section class="crew" id="crew">
     <div class="crew-sticky">
       <div class="crew-head">
-        <p class="label">01 — Le Crew</p>
-        <h2>Les visages<br>derrière le guidon</h2>
+        <p class="label">03 — Le Crew</p>
+        <h2>Les visages<br>sous le casque</h2>
       </div>
       <div class="crew-track" id="crewTrack"></div>
     </div>
@@ -117,18 +101,18 @@
 
   <!-- STATS -->
   <section class="stats">
-    <div class="stat"><span class="num" data-count="42">0</span><span>riders</span></div>
-    <div class="stat"><span class="num" data-count="180">0</span><span>sorties</span></div>
-    <div class="stat"><span class="num" data-count="52000">0</span><span>km parcourus</span></div>
-    <div class="stat"><span class="num" data-count="1">0</span><span>île</span></div>
+    <div class="stat"><span class="num" data-count="974">0</span><span>notre île</span></div>
+    <div class="stat"><span class="num" data-count="120">0</span><span>sorties de nuit</span></div>
+    <div class="stat"><span class="num" data-count="30000">0</span><span>km parcourus</span></div>
+    <div class="stat"><span class="num" data-count="1">0</span><span>crew</span></div>
   </section>
 
   <!-- SHOP -->
   <section class="shop" id="shop">
     <div class="section-head">
-      <p class="label">02 — Shop</p>
+      <p class="label">04 — Shop</p>
       <h2>La collection</h2>
-      <p class="sub">Tees en coton bio 220 g, sérigraphiés à La Réunion. Séries limitées.</p>
+      <p class="sub">Tees coton lourd, sérigraphie EVS. Séries limitées, portés par le crew.</p>
     </div>
     <div class="products" id="products"></div>
   </section>
@@ -136,7 +120,7 @@
   <!-- BLOG -->
   <section class="blog" id="blog">
     <div class="section-head">
-      <p class="label">03 — Blog</p>
+      <p class="label">05 — Blog</p>
       <h2>Carnet de route</h2>
     </div>
     <div class="posts" id="posts"></div>
@@ -144,18 +128,19 @@
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
-    <h2 class="big-cta">Viens<br>rouler<br>avec nous.</h2>
+    <h2 class="big-cta">Stay<br><span>untamed.</span></h2>
     <div class="contact-side">
-      <p>Sortie ouverte chaque dimanche, 7h, parking du Maïdo. Casque, gants, bonne humeur.</p>
-      <a class="btn" href="mailto:contact@kapriders.re">contact@kapriders.re</a>
-      <a class="btn btn-ghost" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <p>Tu veux rouler avec le crew, commander un tee ou faire un shooting ? Écris-nous.</p>
+      <a class="btn" id="mailLink" href="#">E-mail</a>
+      <a class="btn btn-ghost" id="instaLink" href="#" target="_blank" rel="noopener">Instagram</a>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <span>© <span id="year"></span> KAP RIDERS</span>
-  <span>Ride safe · Ride together</span>
+  <span>© <span id="year"></span> Evil Shark Crew</span>
+  <span>Photos : RUNMOTORZ</span>
+  <span>Ride safe · Stay untamed</span>
 </footer>
 
 <!-- CART DRAWER -->
@@ -169,7 +154,7 @@
   <div class="drawer-foot">
     <div class="total"><span>Total</span><strong id="cartTotal">0 €</strong></div>
     <button class="btn btn-full" id="checkout">Commander</button>
-    <p class="fine">Paiement sécurisé à brancher (Stripe / SumUp). En attendant, la commande part par e-mail.</p>
+    <p class="fine">Paiement en ligne à brancher (Stripe / SumUp). En attendant, la commande part par e-mail.</p>
   </div>
 </aside>
 
