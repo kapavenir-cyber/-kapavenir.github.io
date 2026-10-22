@@ -37,9 +37,9 @@ const WALL = [
 ];
 
 const OFFERS = [
-  { id: 'shooting', name: 'Shooting',          price: 19.99, img: 'img/untamed.webp', desc: 'Séance photo de nuit avec ta machine.' },
-  { id: 'edit',     name: 'Edit',              price: 49.99, img: 'img/untamed.webp', desc: 'Retouche pro de tes photos, style EVS.' },
-  { id: 'pack',     name: 'Pack shooting + edit', price: 69.99, img: 'img/untamed.webp', desc: 'La séance et la retouche, le combo complet.', best: true },
+  { id: 'shooting', name: 'Shooting',          price: 39,99, img: 'img/untamed.webp', desc: 'Séance photo de nuit avec ta machine.' },
+  { id: 'edit',     name: 'Edit',              price: (59.99, img: 'img/untamed.webp', desc: 'Retouche pro de tes photos, style EVS.' },
+  { id: 'pack',     name: 'Pack shooting + edit', price: 149.99, img: 'img/untamed.webp', desc: 'La séance et la retouche, le combo complet.', best: true },
 ];
 
 const PRODUCTS = [
